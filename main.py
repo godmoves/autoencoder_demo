@@ -47,7 +47,7 @@ trX, trY, teX, teY = mnist.train.images, mnist.train.labels, mnist.test.images, 
 # Launch the graph in a session
 with tf.Session() as sess:
     # you need to initialize all variables
-    tf.initialize_all_variables().run()
+    sess.run(tf.global_variables_initializer())
 
     for i in range(100):
         for start, end in zip(range(0, len(trX), 128), range(128, len(trX), 128)):
@@ -57,4 +57,3 @@ with tf.Session() as sess:
 
         mask_np = np.random.binomial(1, 1 - corruption_level, teX.shape)
         print(i, sess.run(cost, feed_dict={X: teX, mask: mask_np}))
-
